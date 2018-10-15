@@ -16,6 +16,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.util.Collections.EMPTY_SET;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RaikiryApplicationTests {
@@ -38,11 +40,11 @@ public class RaikiryApplicationTests {
         Assert.assertTrue(people.size() >= 5);
     }
 
-//    @Test
-//    public void saveNewPerson(){
-//        Person person = new Person("Test", "Test address", "Test comment", EMPTY_SET, EMPTY_SET);
-//        personService.save(person);
-//    }
+    @Test
+    public void saveNewPerson(){
+        Person person = new Person("Test", "Test address", "Test comment", EMPTY_SET, EMPTY_SET);
+        personService.save(person);
+    }
 
     @Test
     public void updatePerson(){
