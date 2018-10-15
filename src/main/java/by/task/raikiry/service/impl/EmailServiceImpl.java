@@ -1,0 +1,45 @@
+package by.task.raikiry.service.impl;
+
+import by.task.raikiry.entity.Email;
+import by.task.raikiry.repository.EmailRepository;
+import by.task.raikiry.service.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class EmailServiceImpl implements EmailService {
+
+    private final EmailRepository emailRepository;
+
+    @Autowired
+    public EmailServiceImpl(EmailRepository emailRepository) {
+        this.emailRepository = emailRepository;
+    }
+
+    @Override
+    public void save(Email email) {
+        emailRepository.save(email);
+    }
+
+    @Override
+    public void update(Email email) {
+        emailRepository.save(email);
+    }
+
+    @Override
+    public void delete(Email email) {
+        emailRepository.delete(email);
+    }
+
+    @Override
+    public Email getById(Long id) {
+        return emailRepository.findOne(id);
+    }
+
+    @Override
+    public List<Email> getAll() {
+        return (List<Email>) emailRepository.findAll();
+    }
+}

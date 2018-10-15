@@ -1,0 +1,66 @@
+CREATE SCHEMA if NOT EXISTS address_book CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
+USE address_book;
+
+CREATE TABLE IF NOT EXISTS person(
+  id BIGINT AUTO_INCREMENT,
+  name VARCHAR(100),
+  address VARCHAR(100),
+  comment VARCHAR(255),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS email(
+  id BIGINT AUTO_INCREMENT,
+  email VARCHAR(100),
+  person_id BIGINT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (person_id) REFERENCES person(id)
+);
+
+CREATE TABLE IF NOT EXISTS phone(
+  id BIGINT AUTO_INCREMENT,
+  phone VARCHAR(100),
+  person_id BIGINT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (person_id) REFERENCES person(id)
+);
+
+INSERT INTO `address_book`.`person` (`name`, `address`, `comment`) VALUES ('Feodor Ivanov', 'Minsk city', 'Gud pearson');
+INSERT INTO `address_book`.`person` (`name`, `address`, `comment`) VALUES ('Olga Petrova', 'Brest city', 'Bad person');
+INSERT INTO `address_book`.`person` (`name`, `address`, `comment`) VALUES ('Nik Zolotov', 'Gomel city', 'Happy person');
+INSERT INTO `address_book`.`person` (`name`, `address`, `comment`) VALUES ('Gleb Muromov', 'Murom city', 'Simple person');
+INSERT INTO `address_book`.`person` (`name`, `address`, `comment`) VALUES ('Nika Kaknika', 'Gud village', 'The same as Gleb');
+
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('34564536456', 1);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('54643563456', 2);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('4563456546', 4);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('345634563456', 3);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('45634565436', 5);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('345634563465', 5);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('56434563456', 2);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('564653456', 1);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('56435463564', 2);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('5645466543', 3);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('5463456635', 3);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('56434563456', 4);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('54635463456', 3);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('5463456', 1);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('65465346543', 2);
+INSERT INTO `address_book`.`phone` (phone_number, `person_id`) VALUES ('56454363564', 4);
+
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('sfds@mail.com', 1);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('dsfs@mail.com', 2);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('hjhj@mail.com', 4);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('hgfj@mail.com', 5);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('hjjhgf@mail.com', 1);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('@mail.com', 2);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('hgjjh@mail.com', 3);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('65@mail.com', 3);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('hjf6@mail.com', 2);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('5436@mail.com', 4);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('kuk@mail.com', 4);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('eryt@mail.com', 1);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('ryujt@mail.com', 2);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('yujt@mail.com', 1);
+INSERT INTO `address_book`.`email` (`email`, `person_id`) VALUES ('yujtuy@mail.com', 5);
