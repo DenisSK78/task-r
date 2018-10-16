@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+
 @Path("/address-book")
 public class AddressBookResource {
 
@@ -42,7 +43,10 @@ public class AddressBookResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllPhone() {
-        final List<Phone> people = phoneService.getAll();
-        return Response.ok(people).build();
+        final List<Phone> phones = phoneService.getAll();
+        return Response
+                .status(200)
+                .entity(phones)
+                .build();
     }
 }

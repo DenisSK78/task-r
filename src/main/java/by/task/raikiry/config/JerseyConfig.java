@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class JerseyConfig extends ResourceConfig {
     public JerseyConfig() {
-        packages("by.task.raikiry.web");
+        packages("by.task.raikiry.web", "by.task.raikiry.config");
     }
 }
 
