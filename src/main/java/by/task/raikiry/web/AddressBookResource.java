@@ -35,8 +35,11 @@ public class AddressBookResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("personId") final Long personId) {
-        final Person tutorial = personService.getById(personId);
-        return Response.ok(tutorial).build();
+        final Person person = personService.getById(personId);
+        return Response
+                .status(200)
+                .entity(person)
+                .build();
     }
 
     @Path("/phones")
@@ -44,6 +47,7 @@ public class AddressBookResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllPhone() {
         final List<Phone> phones = phoneService.getAll();
+        System.out.println("+");
         return Response
                 .status(200)
                 .entity(phones)
