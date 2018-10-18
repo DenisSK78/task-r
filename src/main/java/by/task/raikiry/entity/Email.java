@@ -26,7 +26,7 @@ public class Email implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String email;
+    private String emailVal;
 
     @JsonIgnore
     @ManyToOne
@@ -34,7 +34,7 @@ public class Email implements Serializable {
     private Person person;
 
     public Email(String email, Person person) {
-        this.email = email;
+        this.emailVal = email;
         this.person = person;
     }
 }

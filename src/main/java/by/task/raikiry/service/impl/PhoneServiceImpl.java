@@ -24,8 +24,9 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public void update(Phone phone) {
+    public Boolean update(Phone phone) {
         phoneRepository.save(phone);
+        return null;
     }
 
     @Override
