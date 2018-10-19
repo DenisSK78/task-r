@@ -30,8 +30,8 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void delete(Email email) {
-        emailRepository.delete(email);
+    public void delete(Long id) {
+        emailRepository.delete(id);
     }
 
     @Override

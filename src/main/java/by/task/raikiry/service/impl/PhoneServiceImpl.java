@@ -30,8 +30,8 @@ public class PhoneServiceImpl implements PhoneService {
     }
 
     @Override
-    public void delete(Phone phone) {
-        phoneRepository.delete(phone);
+    public void delete(Long id) {
+        phoneRepository.delete(id);
     }
 
     @Override
