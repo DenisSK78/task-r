@@ -1,8 +1,6 @@
 package by.task.raikiry.web;
 
-import by.task.raikiry.entity.Email;
 import by.task.raikiry.entity.Person;
-import by.task.raikiry.entity.Phone;
 import by.task.raikiry.service.EmailService;
 import by.task.raikiry.service.PersonService;
 import by.task.raikiry.service.PhoneService;
@@ -47,26 +45,14 @@ public class AppRestController {
         return personService.update(person);
     }
 
-    @DeleteMapping("/phone/delete/{phoneId}")
-    public Person deletePhoneById(@PathVariable("phoneId") Long phoneId){
-
-
-        Phone phone = phoneService.getById(phoneId);
-        Long personId = phone.getPerson().getId();
-        phoneService.delete(phone.getId());
-
-        System.out.println("--------------------------" + phoneId);
-
-        Person person = personService.getById(personId);
-
-        return person;
+    @DeleteMapping("/phone/delete/{id}")
+    public Person deletePhoneById(@PathVariable("id") Long id){
+        return personService.delPhoneByIdAndGetPersonByPhoneId(id);
     }
 
-
-    @DeleteMapping("/email/delete/{emailId}")
-    public Email deleteEmailById(@RequestBody Email email){
-        System.out.println("----------" + email);
-        return email;
+    @DeleteMapping("/email/delete/{id}")
+    public Person deleteEmailById(@PathVariable("id") Long id){
+        return personService.delEmailByIdAndGetPersonByEmailId(id);
     }
 }
 

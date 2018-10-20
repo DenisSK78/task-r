@@ -2,6 +2,7 @@ package by.task.raikiry;
 
 import by.task.raikiry.entity.Person;
 import by.task.raikiry.entity.Phone;
+import by.task.raikiry.repository.PersonRepository;
 import by.task.raikiry.service.EmailService;
 import by.task.raikiry.service.PersonService;
 import by.task.raikiry.service.PhoneService;
@@ -31,6 +32,9 @@ public class RaikiryApplicationTests {
 
     @Autowired
     EmailService emailService;
+
+    @Autowired
+    PersonRepository personRepository;
 
     @Test
     public void getAllPersons() {
@@ -70,6 +74,28 @@ public class RaikiryApplicationTests {
     @Test
     public void getPersonById(){
         Person person = personService.getById(1L);
+        System.out.println(person);
+    }
+
+    @Test
+    public void getPersonByPhoneId(){
+        Long phoneId = phoneService.getAll()
+                .stream()
+                .findFirst()
+                .get()
+                .getId();
+        Person person =  personService.delPhoneByIdAndGetPersonByPhoneId(phoneId);
+        System.out.println(person);
+    }
+
+    @Test
+    public void getPersonByEmailId(){
+        Long emailId = emailService.getAll()
+                .stream()
+                .findFirst()
+                .get()
+                .getId();
+        Person person =  personService.delEmailByIdAndGetPersonByEmailId(emailId);
         System.out.println(person);
     }
 }
