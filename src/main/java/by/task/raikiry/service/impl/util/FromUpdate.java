@@ -4,7 +4,7 @@ import by.task.raikiry.entity.Email;
 import by.task.raikiry.entity.Person;
 import by.task.raikiry.entity.Phone;
 
-import java.util.Set;
+import java.util.List;
 
 
 public class FromUpdate {
@@ -15,7 +15,7 @@ public class FromUpdate {
         dbPerson.setAddress(updPerson.getAddress());
     }
 
-    public static void updateSetEmails(Set<Email> dbSetEmail, Set<Email> upSetEmail){
+    public static void updateSetEmails(List<Email> dbSetEmail, List<Email> upSetEmail){
         for (Email dbEmail: dbSetEmail){
             for (Email upEmail: upSetEmail){
                 if (dbEmail.getId().equals(upEmail.getId())){
@@ -25,7 +25,7 @@ public class FromUpdate {
         }
     }
 
-    public static void updateSetPhones (Set<Phone> dbSetPhone, Set<Phone> upSetPhone){
+    public static void updateSetPhones (List<Phone> dbSetPhone, List<Phone> upSetPhone){
         for (Phone dbPhone: dbSetPhone){
             for (Phone upPhone: upSetPhone){
                 if (dbPhone.getId().equals(upPhone.getId())){

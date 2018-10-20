@@ -14,15 +14,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@ToString(exclude = {"emails", "phones"})
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 6749050404278135193L;
@@ -34,13 +34,13 @@ public class Person implements Serializable {
     private String address;
     private String comment;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Phone> phones = new HashSet<>();
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Phone> phones = new ArrayList<>();
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Email> emails = new HashSet<>();
+    @OneToMany(mappedBy = "person", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Email> emails = new ArrayList<>();
 
-    public Person(String name, String address, String comment, Set<Phone> phones, Set<Email> emails) {
+    public Person(String name, String address, String comment, List<Phone> phones, List<Email> emails) {
         this.name = name;
         this.address = address;
         this.comment = comment;

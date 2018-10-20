@@ -1,6 +1,7 @@
 package by.task.raikiry;
 
 import by.task.raikiry.entity.Person;
+import by.task.raikiry.entity.Phone;
 import by.task.raikiry.service.EmailService;
 import by.task.raikiry.service.PersonService;
 import by.task.raikiry.service.PhoneService;
@@ -15,8 +16,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Collections.EMPTY_SET;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -42,7 +41,7 @@ public class RaikiryApplicationTests {
 
     @Test
     public void saveNewPerson(){
-        Person person = new Person("Test", "Test address", "Test comment", EMPTY_SET, EMPTY_SET);
+        Person person = new Person("Test", "Test address", "Test comment", null, null);
         personService.save(person);
     }
 
@@ -57,4 +56,20 @@ public class RaikiryApplicationTests {
         personService.update(person);
     }
 
+    @Test
+    public void AddAndDeleteByPhoneId(){
+        Phone phone = new Phone("777", personService.getById(1L));
+        phoneService.save(phone);
+        List<Phone> phones = phoneService.getAll();
+        phones
+                .stream()
+                .filter(ph->ph.getPhoneNumber().equals("777"))
+                .forEach(ph->phoneService.delete(ph.getId()));
+    }
+
+    @Test
+    public void getPersonById(){
+        Person person = personService.getById(1L);
+        System.out.println(person);
+    }
 }

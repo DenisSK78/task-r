@@ -24,7 +24,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public Boolean update(Email email) {
+    public Email update(Email email) {
         emailRepository.save(email);
         return null;
     }
