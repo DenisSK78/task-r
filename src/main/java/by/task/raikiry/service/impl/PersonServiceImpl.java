@@ -7,7 +7,8 @@ import by.task.raikiry.repository.EmailRepository;
 import by.task.raikiry.repository.PersonRepository;
 import by.task.raikiry.repository.PhoneRepository;
 import by.task.raikiry.service.PersonService;
-import by.task.raikiry.service.impl.util.FromUpdate;
+import by.task.raikiry.service.impl.util.CustomServiceException;
+import by.task.raikiry.service.impl.util.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,35 +36,53 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void save(Person person) {
-        personRepository.save(person);
+    @Transactional
+    public Person save(Person person) {
+        Person personSave = new Person();
+        Converter.updateFieldPerson(personSave, person);
+        personSave = personRepository.save(personSave);
+        if (person.getEmails().size() > 0){
+            for (Email email: person.getEmails()){
+                email.setPerson(personSave);
+                emailRepository.save(email);
+            }
+        }
+        if (person.getPhones().size() > 0){
+            for (Phone phone: person.getPhones()){
+                phone.setPerson(personSave);
+                phoneRepository.save(phone);
+            }
+        }
+        return personSave;
     }
 
     @Override
     @Transactional
-    public Person update(Person upPerson) {
+    public Person update(Person upPerson) throws CustomServiceException {
         Person dbPerson = personRepository.findOne(upPerson.getId());
         if (!dbPerson.equals(upPerson)) {
-            FromUpdate.updateFieldPerson(dbPerson, upPerson);
+            Converter.updateFieldPerson(dbPerson, upPerson);
         }
         if (dbPerson.getPhones().size() < upPerson.getPhones().size()){
             upPerson.getPhones()
                     .stream()
-                    .filter(phone -> phone.getId()==null)
-                    .forEach(phone -> phoneRepository.save(new Phone(phone.getPhoneNumber(), dbPerson)));
+                    .filter(phone -> phone.getId() == null)
+                    .forEach(phone -> phoneRepository.save(
+                            new Phone(phone.getPhoneNumber(), dbPerson)));
         }
         if (dbPerson.getEmails().size() < upPerson.getEmails().size()){
             upPerson.getEmails()
                     .stream()
-                    .filter(email -> email.getId()==null)
-                    .forEach(email -> emailRepository.save(new Email(email.getEmailVal() , dbPerson)));
+                    .filter(email -> email.getId() == null)
+                    .forEach(email -> emailRepository.save(
+                            new Email(email.getEmailVal() , dbPerson)));
         }
         if (!dbPerson.getPhones().equals(upPerson.getPhones())) {
-            FromUpdate.updateSetPhones(dbPerson.getPhones(), upPerson.getPhones());
+            Converter.updateSetPhones(dbPerson.getPhones(), upPerson.getPhones());
         }
 
         if (!dbPerson.getEmails().equals(upPerson.getEmails())) {
-            FromUpdate.updateSetEmails(dbPerson.getEmails(), upPerson.getEmails());
+            Converter.updateSetEmails(dbPerson.getEmails(), upPerson.getEmails());
         }
         personRepository.save(dbPerson);
         return dbPerson;

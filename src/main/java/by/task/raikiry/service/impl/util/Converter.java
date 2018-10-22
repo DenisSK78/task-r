@@ -7,7 +7,7 @@ import by.task.raikiry.entity.Phone;
 import java.util.List;
 
 
-public class FromUpdate {
+public class Converter {
 
     public static void updateFieldPerson(Person dbPerson, Person updPerson){
         dbPerson.setName(updPerson.getName());
@@ -19,7 +19,7 @@ public class FromUpdate {
         for (Email dbEmail: dbSetEmail){
             for (Email upEmail: upSetEmail){
                 if (dbEmail.getId().equals(upEmail.getId())){
-                    FromUpdate.updateFieldEmail(dbEmail, upEmail);
+                    Converter.updateFieldEmail(dbEmail, upEmail);
                 }
             }
         }
@@ -29,7 +29,7 @@ public class FromUpdate {
         for (Phone dbPhone: dbSetPhone){
             for (Phone upPhone: upSetPhone){
                 if (dbPhone.getId().equals(upPhone.getId())){
-                    FromUpdate.updateFieldPhone(dbPhone, upPhone);
+                    Converter.updateFieldPhone(dbPhone, upPhone);
                 }
             }
         }

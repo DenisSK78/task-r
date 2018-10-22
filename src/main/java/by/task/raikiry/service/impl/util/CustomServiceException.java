@@ -3,22 +3,22 @@ package by.task.raikiry.service.impl.util;
 /**
  * Raikiry exception
  */
-public class CastomException extends Exception{
+public class CustomServiceException extends Exception{
     private static final long serialVersionUID = -7909871550893750979L;
 
-    public CastomException() {
+    public CustomServiceException() {
         super();
     }
 
-    public CastomException(String message) {
+    public CustomServiceException(String message) {
         super(message);
     }
 
-    public CastomException(String message, Throwable cause) {
+    public CustomServiceException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public CastomException(Throwable cause) {
+    public CustomServiceException(Throwable cause) {
         super(cause);
     }
 }

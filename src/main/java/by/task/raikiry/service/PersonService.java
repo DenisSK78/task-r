@@ -6,4 +6,5 @@ public interface PersonService extends BaseService<Person>{
 
     Person delEmailByIdAndGetPersonByEmailId(Long id);
     Person delPhoneByIdAndGetPersonByPhoneId(Long id);
+
 }

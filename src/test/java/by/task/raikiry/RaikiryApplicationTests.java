@@ -6,6 +6,7 @@ import by.task.raikiry.repository.PersonRepository;
 import by.task.raikiry.service.EmailService;
 import by.task.raikiry.service.PersonService;
 import by.task.raikiry.service.PhoneService;
+import by.task.raikiry.service.impl.util.CustomServiceException;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +58,12 @@ public class RaikiryApplicationTests {
                 .filter(p->p.getName().equals("Test"))
                 .collect(Collectors.toList()).get(0);
         person.setComment("New commit");
-        personService.update(person);
+        try {
+            personService.update(person);
+        } catch (CustomServiceException e) {
+            logger.error("Exception update person: ");
+            e.printStackTrace();
+        }
     }
 
     @Test

@@ -14,4 +14,6 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
     @Query(value = "select * from person p join email e on p.id = e.person_id where e.id = ?1", nativeQuery = true)
     Person personWhereEmailId(Long phoneId);
 
+    @Override
+    Person save(Person s);
 }
