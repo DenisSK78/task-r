@@ -1,9 +1,7 @@
 package by.task.raikiry.web;
 
 import by.task.raikiry.entity.Person;
-import by.task.raikiry.service.EmailService;
 import by.task.raikiry.service.PersonService;
-import by.task.raikiry.service.PhoneService;
 import by.task.raikiry.service.impl.util.CustomServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,16 +22,10 @@ public class AppRestController {
     private Logger logger = LoggerFactory.getLogger(AppRestController.class);
 
     private PersonService personService;
-    private final PhoneService phoneService;
-    private final EmailService emailService;
 
     @Autowired
-    public AppRestController(PersonService personService,
-                             PhoneService phoneService,
-                             EmailService emailService) {
+    public AppRestController(PersonService personService) {
         this.personService = personService;
-        this.phoneService = phoneService;
-        this.emailService = emailService;
     }
 
     @GetMapping("/person/{personId}")
@@ -70,6 +62,11 @@ public class AppRestController {
     @PostMapping("/person/save")
     public Person savePerson(@RequestBody Person person){
         return personService.save(person);
+    }
+
+    @DeleteMapping("/person/delete/{id}")
+    public void delete(@PathVariable("id") Long id){
+        personService.delete(id);
     }
 }
 

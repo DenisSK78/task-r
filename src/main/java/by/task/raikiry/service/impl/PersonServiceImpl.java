@@ -7,7 +7,6 @@ import by.task.raikiry.repository.EmailRepository;
 import by.task.raikiry.repository.PersonRepository;
 import by.task.raikiry.repository.PhoneRepository;
 import by.task.raikiry.service.PersonService;
-import by.task.raikiry.service.impl.util.CustomServiceException;
 import by.task.raikiry.service.impl.util.Converter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,7 +57,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     @Transactional
-    public Person update(Person upPerson) throws CustomServiceException {
+    public Person update(Person upPerson) {
         Person dbPerson = personRepository.findOne(upPerson.getId());
         if (!dbPerson.equals(upPerson)) {
             Converter.updateFieldPerson(dbPerson, upPerson);
@@ -75,7 +74,7 @@ public class PersonServiceImpl implements PersonService {
                     .stream()
                     .filter(email -> email.getId() == null)
                     .forEach(email -> emailRepository.save(
-                            new Email(email.getEmailVal() , dbPerson)));
+                            new Email(email.getEmailVal(), dbPerson)));
         }
         if (!dbPerson.getPhones().equals(upPerson.getPhones())) {
             Converter.updateSetPhones(dbPerson.getPhones(), upPerson.getPhones());
