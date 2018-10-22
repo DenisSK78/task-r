@@ -43,17 +43,30 @@ public class PersonServiceImpl implements PersonService {
     @Transactional
     public Person update(Person upPerson) {
         Person dbPerson = personRepository.findOne(upPerson.getId());
-            if (!dbPerson.equals(upPerson)) {
-                FromUpdate.updateFieldPerson(dbPerson, upPerson);
-            }
-            if (!dbPerson.getPhones().equals(upPerson.getPhones())) {
-                FromUpdate.updateSetPhones(dbPerson.getPhones(), upPerson.getPhones());
-            }
-            if (!dbPerson.getEmails().equals(upPerson.getEmails())) {
-                FromUpdate.updateSetEmails(dbPerson.getEmails(), upPerson.getEmails());
-            }
-            personRepository.save(dbPerson);
-            return dbPerson;
+        if (!dbPerson.equals(upPerson)) {
+            FromUpdate.updateFieldPerson(dbPerson, upPerson);
+        }
+        if (dbPerson.getPhones().size() < upPerson.getPhones().size()){
+            upPerson.getPhones()
+                    .stream()
+                    .filter(phone -> phone.getId()==null)
+                    .forEach(phone -> phoneRepository.save(new Phone(phone.getPhoneNumber(), dbPerson)));
+        }
+        if (dbPerson.getEmails().size() < upPerson.getEmails().size()){
+            upPerson.getEmails()
+                    .stream()
+                    .filter(email -> email.getId()==null)
+                    .forEach(email -> emailRepository.save(new Email(email.getEmailVal() , dbPerson)));
+        }
+        if (!dbPerson.getPhones().equals(upPerson.getPhones())) {
+            FromUpdate.updateSetPhones(dbPerson.getPhones(), upPerson.getPhones());
+        }
+
+        if (!dbPerson.getEmails().equals(upPerson.getEmails())) {
+            FromUpdate.updateSetEmails(dbPerson.getEmails(), upPerson.getEmails());
+        }
+        personRepository.save(dbPerson);
+        return dbPerson;
     }
 
     @Override

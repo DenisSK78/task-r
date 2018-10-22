@@ -84,7 +84,8 @@ public class RaikiryApplicationTests {
                 .findFirst()
                 .get()
                 .getId();
-        Person person =  personService.delPhoneByIdAndGetPersonByPhoneId(phoneId);
+        Person person =  personService
+                .delPhoneByIdAndGetPersonByPhoneId(phoneId);
         System.out.println(person);
     }
 
@@ -95,7 +96,8 @@ public class RaikiryApplicationTests {
                 .findFirst()
                 .get()
                 .getId();
-        Person person =  personService.delEmailByIdAndGetPersonByEmailId(emailId);
+        Person person =  personService
+                .delEmailByIdAndGetPersonByEmailId(emailId);
         System.out.println(person);
     }
 }
